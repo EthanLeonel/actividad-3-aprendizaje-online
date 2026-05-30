@@ -1,0 +1,6 @@
+streamlit==1.35.0
+google-cloud-storage==2.16.0
+river==0.21.2
+pandas==2.2.2
+numpy==1.26.4
+scikit-learn==1.4.2
