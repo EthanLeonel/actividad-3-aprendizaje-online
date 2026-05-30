@@ -1,0 +1,23 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/actividad-3-aprendizaje:$COMMIT_SHA', '.']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/actividad-3-aprendizaje:$COMMIT_SHA']
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - actividad-3-aprendizaje
+      - --image=us-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/actividad-3-aprendizaje:$COMMIT_SHA
+      - --region=us-central1
+      - --allow-unauthenticated
+      - --memory=8Gi
+      - --cpu=2
+      - --timeout=300
+      - --port=8080
+
+images:
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/actividad-3-aprendizaje:$COMMIT_SHA'
